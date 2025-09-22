@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ConciergeConnect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1>Dashboard</h1>
+                        <p>Bem-vindo de volta, Vinicius! 👋</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openModal('new-reservation')">
+                            <i class="fas fa-plus"></i>
+                            Nova Reserva
+                        </button>
+                        <button class="btn btn-ghost" onclick="showLanding()">
+                            <i class="fas fa-home"></i>
+                            Voltar ao Início
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container dashboard-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Total de Reservas</p>
+                            <p class="stat-value" id="total-reservations">42</p>
+                            <p class="stat-change positive">+12% este mês</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Pontos Acumulados</p>
+                            <p class="stat-value" id="total-points">1,250</p>
+                            <p class="stat-change positive">+250 esta semana</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card secondary">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Ganhos Totais</p>
+                            <p class="stat-value" id="total-earnings">R$ 2,500</p>
+                            <p class="stat-change positive">+R$ 450 este mês</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card warning">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Taxa de Conversão</p>
+                            <p class="stat-value" id="conversion-rate">83%</p>
+                            <p class="stat-change positive">+5% vs mês anterior</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level and Quick Actions -->
+            <div class="level-actions-grid">
+                <!-- Level Card -->
+                <div class="level-section">
+                    <div id="user-level-card" class="level-card-full gold">
+                        <!-- Level card content will be loaded by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Ações Rápidas</h3>
+
+                    <div class="action-card">
+                        <div class="action-content">
+                            <div class="action-icon primary">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="action-info">
+                                <h4>Meta Mensal</h4>
+                                <p>8 de 15 reservas</p>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 53%"></div>
+                        </div>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-content">
+                            <div class="action-icon warning">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="action-info">
+                                <h4>Pendências</h4>
+                                <p id="pending-count">3 reservas aguardando confirmação</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-content">
+                            <div class="action-icon luxury">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="action-info">
+                                <h4>Próxima Recompensa</h4>
+                                <p>Faltam 250 pontos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reservation Calendar -->
+            <div class="calendar-section">
+                <h2>Calendário de Reservas</h2>
+                <div id="dashboard-calendar" class="calendar-widget">
+                    <!-- Calendar will be loaded by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="tabs">
+                    <div class="tabs-header">
+                        <div class="tabs-list">
+                            <button class="tab-trigger active" data-tab="recent">Reservas Recentes</button>
+                            <button class="tab-trigger" data-tab="confirmed">Confirmadas</button>
+                            <button class="tab-trigger" data-tab="pending">Pendentes</button>
+                        </div>
+                        <div class="tabs-badge">
+                            <span id="reservations-count">3 reservas</span>
+                        </div>
+                    </div>
+
+                    <div class="tabs-content">
+                        <div id="tab-recent" class="tab-content active">
+                            <div id="recent-reservations" class="reservations-list">
+                                <!-- Recent reservations will be loaded by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div id="tab-confirmed" class="tab-content">
+                            <div id="confirmed-reservations" class="reservations-list">
+                                <!-- Confirmed reservations will be loaded by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div id="tab-pending" class="tab-content">
+                            <div id="pending-reservations" class="reservations-list">
+                                <!-- Pending reservations will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Reservation Modal -->
+    <div id="new-reservation-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Nova Reserva</h2>
+                <button class="modal-close" onclick="closeModal('new-reservation-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="new-reservation-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Cliente</label>
+                            <input type="text" id="guest-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="tel" id="guest-phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Data da Reserva</label>
+                            <input type="date" id="reservation-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Horário</label>
+                            <input type="time" id="reservation-time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Número de Pessoas</label>
+                            <select id="guest-count" required>
+                                <option value="">Selecione</option>
+                                <option value="1">1 pessoa</option>
+                                <option value="2">2 pessoas</option>
+                                <option value="3">3 pessoas</option>
+                                <option value="4">4 pessoas</option>
+                                <option value="5">5 pessoas</option>
+                                <option value="6">6 pessoas</option>
+                                <option value="7">7 pessoas</option>
+                                <option value="8">8 pessoas</option>
+                                <option value="9">9+ pessoas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ocasião</label>
+                            <select id="occasion">
+                                <option value="">Selecione (opcional)</option>
+                                <option value="aniversario">Aniversário</option>
+                                <option value="jantar-negocios">Jantar de Negócios</option>
+                                <option value="comemoracao">Comemoração</option>
+                                <option value="encontro-romantico">Encontro Romântico</option>
+                                <option value="evento-corporativo">Evento Corporativo</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Observações Especiais</label>
+                        <textarea id="special-notes" rows="3" placeholder="Preferências alimentares, alergias, pedidos especiais..."></textarea>

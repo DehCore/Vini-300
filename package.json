@@ -1,0 +1,21 @@
+{
+  "name": "vini-300",
+  "version": "1.0.0",
+  "description": "Dashboard ConciergeConnect em HTML, CSS e JavaScript puro para rodar no navegador",
+  "main": "index.html",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "keywords": [
+    "dashboard",
+    "html",
+    "css",
+    "javascript",
+    "conciergeconnect"
+  ],
+  "author": "Vinicius",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
